@@ -58,7 +58,7 @@ public class KitFrameworkWrapper implements KitManager {
                 Constructor<KitFrameworkWrapper> constructor = clazz.getConstructor(Context.class, ReportingManager.class, ConfigManager.class, AppStateManager.class);
                 mKitManager = constructor.newInstance(mContext, mReportingManager, mConfigManager, mAppStateManager);
                 JSONArray configuration = mConfigManager.getLatestKitConfiguration();
-                Logger.debug("Kit Framework loaded.");
+                Logger.debug("Kit Framework loaded  ."+configuration);
                 if (configuration != null) {
                     Logger.debug("Restoring previous Kit configuration.");
                     updateKits(configuration);
