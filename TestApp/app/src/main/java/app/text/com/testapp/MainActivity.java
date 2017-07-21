@@ -21,8 +21,5 @@ public class MainActivity extends AppCompatActivity {
     public void sendEvent(View view){
         MParticle.getInstance().logEvent("TestEvent", MParticle.EventType.Other);
         Set<Integer> kits = MParticle.getInstance().getKitManager().getSupportedKits();
-        boolean status = Apsalar.event("Hello");
-        Log.d("Apsalar"," Kit initialized "+status);
-
     }
 }

@@ -14,16 +14,7 @@ import com.mparticle.MParticle;
 public class App extends Application {
     @Override
     public void onCreate() {
-        super.onCreate();
-        try {
-            MParticle.start(this);
-        }catch(Exception e){
-            Log.d("Apsalar",e.getMessage());
-        }
-
-        //ApsalarConfig config = new ApsalarConfig("animesh1", "F4YEQB1T");
-        //config.withLoggingEnabled();
-       // Apsalar.init(getApplicationContext(), config);
-
+        super.onCreate();        
+        MParticle.start(this);   
     }
 }
