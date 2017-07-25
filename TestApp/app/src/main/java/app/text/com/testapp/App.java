@@ -2,19 +2,27 @@ package app.text.com.testapp;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.mparticle.DeepLinkError;
+import com.mparticle.DeepLinkListener;
+import com.mparticle.DeepLinkResult;
 import com.mparticle.MParticle;
-
-
-/**
- * Created by Dell on 20/07/2017.
- */
 
 public class App extends Application {
     @Override
     public void onCreate() {
-        super.onCreate();        
-        MParticle.start(this);   
+        super.onCreate();
+        MParticle.start(this);
+        MParticle.getInstance().setDeepLinkListener(new DeepLinkListener() {
+            @Override
+            public void onResult(DeepLinkResult deepLinkResult) {
+                Log.d("Link", deepLinkResult.getLink());
+            }
+
+            @Override
+            public void onError(DeepLinkError deepLinkError) {
+                Log.d("Link", "error");
+            }
+        });
     }
 }

@@ -1,1 +1,1 @@
-include ':app', ':apsalar-kit'
+include ':app'
