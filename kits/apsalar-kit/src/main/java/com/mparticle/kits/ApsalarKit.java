@@ -12,16 +12,15 @@ import com.mparticle.DeepLinkListener;
 import com.mparticle.DeepLinkResult;
 import com.mparticle.MPEvent;
 import com.mparticle.MParticle;
-import com.mparticle.commerce.CommerceEvent;
 import com.mparticle.internal.MPUtility;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import static com.mparticle.internal.MPUtility.getAvailableInstanceId;
+import static com.mparticle.internal.MPUtility.MessagingService.FCM;
+import static com.mparticle.internal.MPUtility.MessagingService.GCM;
 
-public class ApsalarKit extends KitIntegration implements KitIntegration.ActivityListener, KitIntegration.EventListener, KitIntegration.PushListener, KitIntegration.CommerceListener, DeferredDeepLinkHandler {
+public class ApsalarKit extends KitIntegration implements KitIntegration.ActivityListener, KitIntegration.EventListener, KitIntegration.PushListener, DeferredDeepLinkHandler {
 
     private static final String API_KEY = "apiKey";
     private static final String API_SECRET = "secret";
@@ -126,16 +125,6 @@ public class ApsalarKit extends KitIntegration implements KitIntegration.Activit
             deepLinkResult.setLink(link);
             deepLinkListener.onResult(deepLinkResult);
         }
-    }
-
-    @Override
-    public List<ReportingMessage> logLtvIncrease(BigDecimal bigDecimal, BigDecimal bigDecimal1, String s, Map<String, String> map) {
-        return null;
-    }
-
-    @Override
-    public List<ReportingMessage> logEvent(CommerceEvent commerceEvent) {
-       return null;
     }
 
     @Override
