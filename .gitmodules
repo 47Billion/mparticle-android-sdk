@@ -64,6 +64,3 @@
 [submodule "kits/skyhook-kit"]
 	path = kits/skyhook-kit
 	url = git@github.com:mparticle-integrations/mparticle-android-integration-skyhook.git
-[submodule "kits/apsalar-kit"]
-	path = kits/apsalar-kit
-	url = https://github.com/47Billion/mparticle-android-integration-example.git
