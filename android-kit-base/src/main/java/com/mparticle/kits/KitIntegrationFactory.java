@@ -47,7 +47,7 @@ public class KitIntegrationFactory {
         kits.put(MParticle.ServiceProviders.RADAR,            "com.mparticle.kits.RadarKit");
         kits.put(MParticle.ServiceProviders.ITERABLE,         "com.mparticle.kits.IterableKit");
         kits.put(MParticle.ServiceProviders.SKYHOOK,          "com.mparticle.kits.SkyhookKit");
-		kits.put(MParticle.ServiceProviders.APSALAR,          "com.mparticle.kits.ApsalarKit");
+		kits.put(MParticle.ServiceProviders.SINGULAR,          "com.mparticle.kits.SingularKit");
         return kits;
     }
 
