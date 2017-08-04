@@ -10,10 +10,23 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="sendEvent"
-        android:text="Send Event with Paramas" />
+        android:text="Send Event Name without parama" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendMapEvent"
+        android:text="Send Event with Paramas Map" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendRevenueEvent"
+        android:text="Send Revenue Event" />
 </LinearLayout>

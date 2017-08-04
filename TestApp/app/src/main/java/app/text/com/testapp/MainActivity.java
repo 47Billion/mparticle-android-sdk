@@ -5,6 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mparticle.MParticle;
+import com.mparticle.commerce.Cart;
+import com.mparticle.commerce.CommerceApi;
+import com.mparticle.commerce.CommerceEvent;
+import com.mparticle.commerce.Product;
+import com.mparticle.commerce.TransactionAttributes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,5 +25,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendEvent(View view) {
         MParticle.getInstance().logEvent("TestEvent", MParticle.EventType.Other);
+    }
+
+    public void sendMapEvent(View view) {
+        Map map = new HashMap<String, String>();
+        map.put("Key1","Value1");
+        MParticle.getInstance().logEvent("TestEvent", MParticle.EventType.Other,map);
+    }
+
+    public void sendRevenueEvent(View view) {
+        Cart cart = Cart.getInstance(this);
+        Product.Builder builder = new Product.Builder("Product Name ", "SKU", 5.6);
+        builder.category("Electronics");
+        builder.quantity(10);
+        cart.add(builder.build());
+        CommerceApi commerceApi = MParticle.getInstance().Commerce();
+        commerceApi.checkout();
+
     }
 }
