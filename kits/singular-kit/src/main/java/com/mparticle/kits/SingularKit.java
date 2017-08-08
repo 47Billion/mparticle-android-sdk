@@ -59,6 +59,9 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
         config = new SingularConfig(singularKey, singularSecret);
         config.withDDLTimeoutInSec(DDL_HANDLER_TIMEOUT_SEC);
         config.withDDLHandler(this);
+        if (MParticle.getInstance().getEnvironment() == MParticle.Environment.Development) {
+            config.withLoggingEnabled();
+        }
         Singular.init(context, config);
         List<ReportingMessage> messages = new ArrayList<ReportingMessage>();
         messages.add(new ReportingMessage(this, ReportingMessage.MessageType.APP_STATE_TRANSITION, System.currentTimeMillis(), null));
@@ -138,10 +141,10 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
         } else {
             eventStatus = Singular.event(eventName);
         }
-        if(eventStatus) {
+        if (eventStatus) {
             messages.add(ReportingMessage.fromEvent(this, mpEvent));
         } else {
-            messages.add(new ReportingMessage(this,ReportingMessage.MessageType.ERROR,System.currentTimeMillis(), null));
+            messages.add(new ReportingMessage(this, ReportingMessage.MessageType.ERROR, System.currentTimeMillis(), null));
         }
         return messages;
     }
@@ -203,9 +206,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     @Override
     public List<ReportingMessage> logEvent(CommerceEvent commerceEvent) {
         List<ReportingMessage> messages = new LinkedList<ReportingMessage>();
-
-        if (commerceEvent.getProductAction().equals(Product.PURCHASE)) {
-
+        if (commerceEvent.getProductAction().equals(Product.CHECKOUT)) {
             if (!KitUtils.isEmpty(commerceEvent.getCurrency())) {
                 currency = commerceEvent.getCurrency();
             }
@@ -222,7 +223,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
                     }
                     productName = product.getName();
                     amount = product.getTotalAmount();
-                    Singular.revenue(currency, amount, productSKU, productName, productCategory, (int)productQuantity, productPrice);
+                    Singular.revenue(currency, amount, productSKU, productName, productCategory, (int) productQuantity, productPrice);
                     messages.add(ReportingMessage.fromEvent(this, commerceEvent));
                 }
             }
