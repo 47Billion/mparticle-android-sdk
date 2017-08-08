@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mparticle.DeepLinkListener;
 import com.mparticle.DeepLinkResult;
@@ -61,6 +62,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
         config.withDDLHandler(this);
         if (MParticle.getInstance().getEnvironment() == MParticle.Environment.Development) {
             config.withLoggingEnabled();
+            config.withLogLevel(Log.DEBUG);
         }
         Singular.init(context, config);
         List<ReportingMessage> messages = new ArrayList<ReportingMessage>();
