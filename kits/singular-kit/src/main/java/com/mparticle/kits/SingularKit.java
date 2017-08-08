@@ -206,7 +206,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     @Override
     public List<ReportingMessage> logEvent(CommerceEvent commerceEvent) {
         List<ReportingMessage> messages = new LinkedList<ReportingMessage>();
-        if (commerceEvent.getProductAction().equals(Product.CHECKOUT)) {
+        if (commerceEvent.getProductAction().equals(Product.PURCHASE)) {
             if (!KitUtils.isEmpty(commerceEvent.getCurrency())) {
                 currency = commerceEvent.getCurrency();
             }
