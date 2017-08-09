@@ -143,7 +143,6 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
         } else {
             eventStatus = Singular.event(eventName);
         }
-        Log.d("Singular", "Event :" + eventStatus);
         if (eventStatus) {
             messages.add(ReportingMessage.fromEvent(this, mpEvent));
         }
