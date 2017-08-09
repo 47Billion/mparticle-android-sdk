@@ -258,17 +258,17 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     public void setUserAttribute(String key, String value) {
         Map<String, String> map = new HashMap<String, String>();
         if (MParticle.UserAttributes.AGE.equals(key)) {
-            map.put("age", value);
+            map.put("value", value);
+            JSONObject params = new JSONObject(map);
+            Singular.event("age", params.toString());
         }  else if (MParticle.UserAttributes.GENDER.equals(key)) {
             if (value.contains("fe")) {
-                map.put("gender", "f");
+                map.put("value", "f");
             } else {
-                map.put("gender", "m");
+                map.put("value", "m");
             }
-        }
-        if (map != null && map.size() > 0) {
             JSONObject params = new JSONObject(map);
-            Singular.event("UserAttribute", params.toString());
+            Singular.event("gender", params.toString());
         }
     }
 
