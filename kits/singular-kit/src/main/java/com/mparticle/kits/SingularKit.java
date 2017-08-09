@@ -19,6 +19,7 @@ import com.singular.sdk.Singular;
 import com.singular.sdk.SingularConfig;
 import com.singular.sdk.SingularInstallReceiver;
 
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -46,6 +47,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     double productPrice;
 
     boolean eventStatus;
+    private String mLink;
 
     @Override
     protected List<ReportingMessage> onKitCreate(Map<String, String> settings, Context context) {
@@ -157,8 +159,9 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
 
     @Override
     public void handleLink(String link) {
+        mLink = link;
         DeepLinkListener deepLinkListener = MParticle.getInstance().getDeepLinkListener();
-        if (deepLinkListener != null) {
+        if (deepLinkListener != null && !KitUtils.isEmpty(link)) {
             DeepLinkResult deepLinkResult = new DeepLinkResult();
             deepLinkResult.setServiceProviderId(MParticle.ServiceProviders.SINGULAR);
             deepLinkResult.setLink(link);
@@ -207,7 +210,19 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     @Override
     public List<ReportingMessage> logEvent(CommerceEvent commerceEvent) {
         List<ReportingMessage> messages = new LinkedList<ReportingMessage>();
-        if (commerceEvent.getProductAction().equals(Product.PURCHASE)) {
+        if (!commerceEvent.getProductAction().equals(Product.PURCHASE)) {
+            List<MPEvent> eventList = CommerceEventUtils.expand(commerceEvent);
+            if (eventList != null) {
+                for (int i = 0; i < eventList.size(); i++) {
+                    try {
+                        logEvent(eventList.get(i));
+                        messages.add(ReportingMessage.fromEvent(this, commerceEvent));
+                        } catch (Exception e) {
+                        Logger.warning("Failed to call logCustomEvent to Singular kit: " + e.toString());
+                    }
+                }
+            }
+        } else {
             if (!KitUtils.isEmpty(commerceEvent.getCurrency())) {
                 currency = commerceEvent.getCurrency();
             }
@@ -227,18 +242,6 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
                     Singular.revenue(currency, amount, productSKU, productName, productCategory, (int) productQuantity, productPrice);
                 }
                 messages.add(ReportingMessage.fromEvent(this, commerceEvent));
-                return messages;
-            }
-        }
-        List<MPEvent> eventList = CommerceEventUtils.expand(commerceEvent);
-        if (eventList != null) {
-            for (int i = 0; i < eventList.size(); i++) {
-                try {
-                    logEvent(eventList.get(i));
-                    messages.add(ReportingMessage.fromEvent(this, commerceEvent));
-                } catch (Exception e) {
-                    Logger.warning("Failed to call logCustomEvent to Singular kit: " + e.toString());
-                }
             }
         }
         return messages;
@@ -246,7 +249,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
 
     @Override
     public void checkForDeepLink() {
-        config.withDDLTimeoutInSec(DDL_HANDLER_TIMEOUT_SEC);
-        config.withDDLHandler(this);
+        this.handleLink(mLink);
+        mLink = null;
     }
 }
