@@ -143,10 +143,9 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
         } else {
             eventStatus = Singular.event(eventName);
         }
+        Log.d("Singular", "Event :" + eventStatus);
         if (eventStatus) {
             messages.add(ReportingMessage.fromEvent(this, mpEvent));
-        } else {
-            messages.add(new ReportingMessage(this, ReportingMessage.MessageType.ERROR, System.currentTimeMillis(), null));
         }
         return messages;
     }
@@ -226,10 +225,24 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
                     productName = product.getName();
                     amount = product.getTotalAmount();
                     Singular.revenue(currency, amount, productSKU, productName, productCategory, (int) productQuantity, productPrice);
-                    messages.add(ReportingMessage.fromEvent(this, commerceEvent));
                 }
+                messages.add(ReportingMessage.fromEvent(this, commerceEvent));
+                return messages;
+            }
+        }
+        List<MPEvent> eventList = CommerceEventUtils.expand(event);
+        if (eventList != null) {
+            for (int i = 0; i < eventList.size(); i++) {
+                logEvent(eventList.get(i));
+                messages.add(ReportingMessage.fromEvent(this, event));
             }
         }
         return messages;
+    }
+
+    @Override
+    public void checkForDeepLink() {
+        config.withDDLTimeoutInSec(DDL_HANDLER_TIMEOUT_SEC);
+        config.withDDLHandler(this);
     }
 }
