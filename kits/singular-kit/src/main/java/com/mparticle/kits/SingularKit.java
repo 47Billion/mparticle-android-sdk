@@ -22,6 +22,7 @@ import com.singular.sdk.SingularInstallReceiver;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 
-public class SingularKit extends KitIntegration implements KitIntegration.ActivityListener, KitIntegration.EventListener, KitIntegration.PushListener, KitIntegration.CommerceListener, DeferredDeepLinkHandler {
+public class SingularKit extends KitIntegration implements KitIntegration.ActivityListener, KitIntegration.EventListener, KitIntegration.PushListener, KitIntegration.CommerceListener, DeferredDeepLinkHandler, KitIntegration.AttributeListener {
 
     private static final String API_KEY = "apiKey";
     private static final String API_SECRET = "secret";
@@ -217,7 +218,7 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
                     try {
                         logEvent(eventList.get(i));
                         messages.add(ReportingMessage.fromEvent(this, commerceEvent));
-                        } catch (Exception e) {
+                    } catch (Exception e) {
                         Logger.warning("Failed to call logCustomEvent to Singular kit: " + e.toString());
                     }
                 }
@@ -251,5 +252,66 @@ public class SingularKit extends KitIntegration implements KitIntegration.Activi
     public void checkForDeepLink() {
         this.handleLink(mLink);
         mLink = null;
+    }
+
+    @Override
+    public void setUserAttribute(String key, String value) {
+        Map<String, String> map = new HashMap<String, String>();
+        if (MParticle.UserAttributes.CITY.equals(key)) {
+            map.put("city", value);
+        } else if (MParticle.UserAttributes.COUNTRY.equals(key)) {
+            map.put("country", value);
+        } else if (MParticle.UserAttributes.FIRSTNAME.equals(key)) {
+            map.put("firstName", value);
+        } else if (MParticle.UserAttributes.GENDER.equals(key)) {
+            if (value.contains("fe")) {
+                map.put("gender", "f");
+            } else {
+                map.put("gender", "m");
+            }
+        } else if (MParticle.UserAttributes.LASTNAME.equals(key)) {
+            map.put("lastname", value);
+        } else if (MParticle.UserAttributes.MOBILE_NUMBER.equals(key)) {
+            map.put("phoneNumber", value);
+        }
+        if (map != null && map.size() > 0) {
+            JSONObject params = new JSONObject(map);
+            Singular.event("UserAttribute", params.toString());
+        }
+    }
+
+    @Override
+    public void setUserAttributeList(String s, List<String> list) {
+
+    }
+
+    @Override
+    public boolean supportsAttributeLists() {
+        return false;
+    }
+
+    @Override
+    public void setAllUserAttributes(Map<String, String> map, Map<String, List<String>> map1) {
+
+    }
+
+    @Override
+    public void removeUserAttribute(String s) {
+
+    }
+
+    @Override
+    public void setUserIdentity(MParticle.IdentityType identityType, String s) {
+
+    }
+
+    @Override
+    public void removeUserIdentity(MParticle.IdentityType identityType) {
+
+    }
+
+    @Override
+    public List<ReportingMessage> logout() {
+        return null;
     }
 }
