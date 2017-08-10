@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "app.text.com.testapp"
+        applicationId "com.singularkit.testapp"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.singular.sdk:singular_sdk:7.0.1'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -33,8 +33,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
-
-    compile 'com.mparticle:android-singular-kit:4+'
     compile 'com.google.android.gms:play-services-ads:9.0.0'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile files('libs/android-kit-plugin-4.15.1-20170810.112148-19.jar')
+    compile (name:'android-core-4.15.1-20170810.112145-19', ext:'aar')
+    compile (name:'android-kit-base-4.15.1-20170810.112147-19', ext:'aar')
+    compile (name:'android-singular-kit-4.15.1-20170810.112243-15', ext:'aar')
 }

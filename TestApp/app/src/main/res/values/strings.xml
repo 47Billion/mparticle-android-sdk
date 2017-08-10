@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mparticle Apsalar-Kit</string>
+    <string name="app_name">MParticle Singular-Kit</string>
     <string name="mp_key">beaa1f641680524f81042c748a56b781</string>
     <string name="mp_secret">PrljhbdL8iTYrhpeLJ-avYRMo9OYqFVfLbAPrK-YQ-28dmwDbJFxRbeVApNFcr6N</string>
     <string name="mp_reportUncaughtExceptions">true</string>

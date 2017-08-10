@@ -1,4 +1,4 @@
-package app.text.com.testapp;
+package com.singularkit.testapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +7,11 @@ import android.view.View;
 import com.mparticle.MParticle;
 import com.mparticle.commerce.Cart;
 import com.mparticle.commerce.CommerceApi;
-import com.mparticle.commerce.CommerceEvent;
 import com.mparticle.commerce.Product;
-import com.mparticle.commerce.TransactionAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 public class MainActivity extends AppCompatActivity {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context="app.text.com.testapp.MainActivity"
+    tools:context="app.text.com.testapp.com.singularkit.testapp.MainActivity"
     android:orientation="vertical">
 
 

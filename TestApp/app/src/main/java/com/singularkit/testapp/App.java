@@ -1,4 +1,4 @@
-package app.text.com.testapp;
+package com.singularkit.testapp;
 
 import android.app.Application;
 import android.util.Log;
