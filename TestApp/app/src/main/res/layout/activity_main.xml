@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context="app.text.com.testapp.MainActivity"
     android:orientation="vertical">
-
 
 
     <Button
@@ -14,19 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="sendEvent"
-        android:text="Send Event Name without parama" />
+        android:text="Send Event without params" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="sendMapEvent"
-        android:text="Send Event with Paramas Map" />
+        android:text="Send Event with Map" />
+
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="sendRevenueEvent"
         android:text="Send Revenue Event" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="checkForDeepLink"
+        android:text="Check For DeepLink" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setUserAttributes"
+        android:text="Set User Attribute" />
+
+
 </LinearLayout>

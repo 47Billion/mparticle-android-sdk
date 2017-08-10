@@ -29,18 +29,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMapEvent(View view) {
         Map map = new HashMap<String, String>();
-        map.put("Key1","Value1");
-        MParticle.getInstance().logEvent("TestEvent", MParticle.EventType.Other,map);
+        map.put("Key1", "Value1");
+        MParticle.getInstance().logEvent("TestEvent", MParticle.EventType.Other, map);
     }
 
     public void sendRevenueEvent(View view) {
         Cart cart = Cart.getInstance(this);
+        cart.clear();
         Product.Builder builder = new Product.Builder("Product Name ", "SKU", 5.6);
         builder.category("Electronics");
         builder.quantity(10);
         cart.add(builder.build());
         CommerceApi commerceApi = MParticle.getInstance().Commerce();
         commerceApi.checkout();
+    }
 
+    public void setUserAttributes(View view) {
+        MParticle.getInstance().setUserAttribute(MParticle.UserAttributes.AGE, "35");
+    }
+
+    public void checkForDeepLink(View view) {
+        MParticle.getInstance().getKitManager().checkForDeepLink();
     }
 }
